@@ -1,0 +1,53 @@
+DATABASE: tradedb
+USER: tradeuser
+PASSWORD: tradepwd
+HOST: mdw
+PORT: 5432
+KAFKA:
+   INPUT:
+      SOURCE:
+         BROKERS: kafka.c.pde-nsarvi.internal:9092
+         TOPIC: tradetopic
+      COLUMNS:
+        - NAME: id
+          TYPE: varchar
+        - NAME: acountId
+          TYPE: int
+        - NAME: tradeId
+          TYPE: int
+        - NAME: cusip
+          TYPE: varchar
+        - NAME: units
+          TYPE: int
+        - NAME: tradeDate
+          TYPE: date
+        - NAME: action
+          TYPE: varchar
+        - NAME: amount
+          TYPE: int
+      FORMAT: csv
+      ERROR_LIMIT: 125
+      LOCAL_HOSTNAME: pivotal-greenplum-byol-1-mdw.c.pde-nsarvi.internal
+   OUTPUT:
+     TABLE: trade
+     MAPPING:
+        - NAME: id
+          EXPRESSION: id
+        - NAME: acountId
+          EXPRESSION: acountId
+        - NAME: tradeId
+          EXPRESSION: tradeId
+        - NAME: cusip
+          EXPRESSION: cusip
+        - NAME: units
+          EXPRESSION: units
+        - NAME: tradeDate
+          EXPRESSION: tradeDate
+        - NAME: action
+          EXPRESSION: action
+        - NAME: amount
+          EXPRESSION: amount
+   COMMIT:
+      MAX_ROW: 100
+   POLL:
+      BATCHSIZE: 10
