@@ -22,6 +22,7 @@ Login to machine where GPKafka is installed and run below command
 
 gpkafka load  --verbose scripts/gpkafka-load-trade-table.yaml
 
+# Run 
 Run the data generator app
 
 java -jar spring-boot-kafka-producer-example-0.0.1-SNAPSHOT.jar
